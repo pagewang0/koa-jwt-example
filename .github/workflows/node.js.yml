@@ -26,6 +26,12 @@ jobs:
 
     - run: npm install
 
-    - run: npm test
+    - run: npm run cover
+    
+    - name: Coverage monitor
+      uses: slavcodev/coverage-monitor-action@v1
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          coverage_path: "coverage/clover.xml"
       env:
         CI: true
