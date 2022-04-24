@@ -24,8 +24,11 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
 
+    - name: Code Coverage Report
+      uses: romeovs/lcov-reporter-action@v0.2.11
+
     - run: npm install
 
-    - run: npm test
+    - run: npm run cover
       env:
         CI: true

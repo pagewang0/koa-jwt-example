@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test npx mocha test --exit --config .mocharc.js",
-    "cover": "npx nyc --reporter=html npm run test"
+    "cover": "npx nyc --reporter=text-summary npm run test"
   },
   "keywords": [
     "api",
