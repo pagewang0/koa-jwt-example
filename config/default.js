@@ -11,8 +11,6 @@ module.exports = {
     opts: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false,
     },
     debug: false,
   },
