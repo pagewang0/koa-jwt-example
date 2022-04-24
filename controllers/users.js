@@ -17,7 +17,7 @@ exports.register = async (ctx) => {
   try {
     await schema.validateAsync({ name, email, password });
   } catch (error) {
-    ctx.throw(400, '用户名或邮箱不正确');
+    ctx.throw(400, '用户名或邮箱不正确或者签发JWT失败');
   }
 
   const user = await models.users.findOne({ $or: [{ name }, { email }] });
@@ -55,19 +55,19 @@ exports.login = async (ctx) => {
   try {
     await schema.validateAsync({ email, password });
   } catch (error) {
-    ctx.throw(400, '用户名或密码不正确');
+    ctx.throw(400, '用户名或密码不正确或者签发JWT失败');
   }
 
   const user = await models.users.findOne({ email }, { password: 1, salt: 1 });
 
   if (!user) {
-    ctx.throw(400, '用户名或密码不正确');
+    ctx.throw(400, '用户名或密码不正确或者签发JWT失败');
   }
 
   const encode = utils.md5(password, user.salt);
 
   if (encode !== user.password) {
-    ctx.throw(400, '用户名或密码不正确');
+    ctx.throw(400, '用户名或密码不正确或者签发JWT失败');
   }
 
   const token = await proxy.users.get_token(ctx, user._id);

@@ -39,7 +39,7 @@ describe('users', () => {
     const res = await request.post('/api/v2/auth/register')
       .expect(400);
 
-    assert.equal(res.body.error, '用户名或邮箱不正确');
+    assert.equal(res.body.error, '用户名或邮箱不正确或者签发JWT失败');
   });
 
   it('register 400 name or email has used', async () => {
@@ -68,7 +68,7 @@ describe('users', () => {
     const res = await request.post('/api/v2/auth/login')
       .expect(400);
 
-    assert.equal(res.body.error, '用户名或密码不正确');
+    assert.equal(res.body.error, '用户名或密码不正确或者签发JWT失败');
   });
 
   it('login 400 wrong email', async () => {
@@ -79,7 +79,7 @@ describe('users', () => {
       })
       .expect(400);
 
-    assert.equal(res.body.error, '用户名或密码不正确');
+    assert.equal(res.body.error, '用户名或密码不正确或者签发JWT失败');
   });
 
   it('login 400 wrong password', async () => {
@@ -87,7 +87,7 @@ describe('users', () => {
       .send(_.assign({}, payload, { password: faker.internet.password() }))
       .expect(400);
 
-    assert.equal(res.body.error, '用户名或密码不正确');
+    assert.equal(res.body.error, '用户名或密码不正确或者签发JWT失败');
   });
 
   it('me 200', async () => {
