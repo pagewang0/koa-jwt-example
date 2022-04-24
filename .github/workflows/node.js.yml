@@ -28,14 +28,10 @@ jobs:
 
     - run: npm run cover
 
-    - name: Monitor coverage
-      uses: slavcodev/coverage-monitor-action@v1
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.2.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        coverage_path: "coverage/clover.xml"
-        threshold_alert: 10
-        threshold_warning: 50
-        threshold_metric: "lines"
+        filename: coverage/clover.xml
           
       env:
         CI: true
