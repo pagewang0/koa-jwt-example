@@ -27,11 +27,6 @@ jobs:
     - run: npm install
 
     - run: npm run cover
-
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.2.0
-      with:
-        filename: coverage/clover.xml
-          
+    
       env:
         CI: true
