@@ -1,5 +1,6 @@
 const joi = require('joi');
 const _ = require('lodash');
+const Boom = require('@hapi/boom');
 
 const models = require('../models');
 const utils = require('../utils');
@@ -40,7 +41,7 @@ exports.register = async (ctx) => {
 
   await newUser.save();
 
-  const token = await proxy.users.get_token(ctx, newUser._id);
+  const token = await proxy.users.get_token(newUser._id);
 
   ctx.body = { token };
 };
@@ -70,7 +71,7 @@ exports.login = async (ctx) => {
     ctx.throw(400, '用户名或密码不正确或者签发JWT失败');
   }
 
-  const token = await proxy.users.get_token(ctx, user._id);
+  const token = await proxy.users.get_token(user._id);
 
   ctx.body = { token };
 };
@@ -121,10 +122,12 @@ exports.my_posts = async (ctx) => {
   try {
     await schema.validateAsync({ page, count });
   } catch (error) {
-    ctx.throw(400, 'count/page无效');
+    throw Boom.badRequest('count/page无效');
   }
 
-  await proxy.posts.list(ctx, { page, count, uid: id });
+  const res = await proxy.posts.list({ page, count, uid: id });
+
+  ctx.body = res;
 };
 
 exports.posts = async (ctx) => {
@@ -145,5 +148,7 @@ exports.posts = async (ctx) => {
     ctx.throw(400, '用户id无效/count无效/page无效');
   }
 
-  await proxy.posts.list(ctx, { page, count, uid: id });
+  const res = await proxy.posts.list({ page, count, uid: id });
+
+  ctx.body = res;
 };

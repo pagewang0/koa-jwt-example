@@ -1,6 +1,6 @@
 const models = require('../models');
 
-exports.list = async (ctx, opts) => {
+exports.list = async (opts) => {
   const { page, count, uid } = opts;
 
   const cond = {};
@@ -14,5 +14,5 @@ exports.list = async (ctx, opts) => {
     .limit(count)
     .sort({ created_at: -1 });
 
-  ctx.body = posts.map((post) => post.toJSON());
+  return posts.map((post) => post.toJSON());
 };

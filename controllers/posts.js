@@ -40,7 +40,9 @@ exports.list = async (ctx) => {
     ctx.throw(400, 'count/page无效');
   }
 
-  await proxy.posts.list(ctx, { page, count });
+  const res = await proxy.posts.list({ page, count });
+
+  ctx.body = res;
 };
 
 exports.read = async (ctx) => {
@@ -70,18 +72,28 @@ exports.update = async (ctx) => {
   const { title, content } = ctx.request.body;
 
   const schema = joi.object({
-    title: joi.string().required(),
-    content: joi.string().required(),
+    title: joi.string(),
+    content: joi.string(),
     id: joi.string().hex().length(24).required(),
   });
 
   try {
-    await schema.validateAsync({ title, content, id });
+    await schema.validateAsync({ id });
   } catch (error) {
     ctx.throw(400, '帖子id无效');
   }
 
-  const res = await models.posts.findByIdAndUpdate(id, { title, content }, { new: true });
+  const payload = {};
+
+  if (title) {
+    payload.title = title;
+  }
+
+  if (content) {
+    payload.content = content;
+  }
+
+  const res = await models.posts.findByIdAndUpdate(id, payload, { new: true });
 
   if (!res) {
     ctx.throw(404, '帖子不存在');
