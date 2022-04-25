@@ -32,6 +32,14 @@ jobs:
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
         filename: coverage/cobertura-coverage.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '60 80'
     env:
       CI: true
 
