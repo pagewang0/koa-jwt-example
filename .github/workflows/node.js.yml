@@ -28,11 +28,12 @@ jobs:
 
     - run: npm run cover
     
-    - name: Launch the action
+    - name: Coverage Report
       uses: ewjoachim/coverage-comment-action@v1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERAGE_FILE: "coverage/cobertura-coverage.xml"
+        MINIMUM_GREEN: 90
         
     env:
       CI: true
