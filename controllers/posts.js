@@ -72,8 +72,6 @@ exports.update = async (ctx) => {
   const { title, content } = ctx.request.body;
 
   const schema = joi.object({
-    title: joi.string(),
-    content: joi.string(),
     id: joi.string().hex().length(24).required(),
   });
 
