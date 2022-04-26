@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test npx mocha test --exit --config .mocharc.js",
-    "cover": "npx nyc --reporter=cobertura npm run test"
+    "cover": "npx nyc npm run test"
   },
   "keywords": [
     "api",
@@ -24,8 +24,7 @@
     "koa-jwt": "^4.0.3",
     "koa-router": "^10.1.1",
     "lodash": "^4.17.21",
-    "mongoose": "^6.3.0",
-    "nyc": "^15.1.0"
+    "mongoose": "^6.3.0"
   },
   "devDependencies": {
     "chai": "^4.3.6",
@@ -34,6 +33,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-mocha": "^10.0.4",
     "mocha": "^9.2.2",
+    "nyc": "^15.1.0",
     "sinon": "^13.0.2",
     "supertest": "^6.2.2"
   }
